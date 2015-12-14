@@ -101,7 +101,7 @@ def compile(install):
                 .done()
              .builder
                 .copy()
-                .under('app/supervisor/lib/python2.7/site-packages')
+                .under('/tmp/app/supervisor/lib/python2.7/site-packages')
                 .into('{BUILD_DIR}/.bp/lib')
                 .done()
          )
