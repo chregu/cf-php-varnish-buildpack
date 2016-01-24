@@ -73,12 +73,12 @@ dependencies:
       - cflinuxfs2
     md5: a73a683df058fa80cf2f7b5fe13314f3
   - name: php
-    version: 7.0.0
-    uri: https://gitlab.liip.ch/chregu/cf-varnish-binary/raw/master/vendor/php-7.0.0.tgz
+    version: 7.0.2
+    uri: https://gitlab.liip.ch/chregu/cf-varnish-binary/raw/master/vendor/php-7.0.2.tgz
     modules: ["bz2", "curl", "dba", "exif", "fileinfo", "ftp", "gd", "gettext", "gmp", "imap", "ldap", "mbstring", "mcrypt", "mysql", "mysqli", "opcache", "openssl", "pcntl", "pdo", "pdo_mysql", "pdo_pgsql", "pdo_sqlite", "pgsql", "pspell", "readline", "snmp", "soap", "sockets", "xsl", "zip", "zlib", "intl", "igbinary", "imagick", "mailparse", "memcache", "mongo", "msgpack", "protocolbuffers", "redis", "sundown", "xdebug", "yaf", "amqp", "lua", "phpiredis", "protobuf", "phalcon", "suhosin", "twig", "xcache", "xhprof", "memcached", "ioncube"]
     cf_stacks:
       - cflinuxfs2
-    md5: 06852e70a0c5b21021c0d1fa4f892c8a
+    md5: 899fbdcdee066a54bb72b533ed264083
   - name: nginx
     version: 1.8.0
     uri: https://pivotal-buildpacks.s3.amazonaws.com/concourse-binaries/nginx/nginx-1.8.0-linux-x64.tgz

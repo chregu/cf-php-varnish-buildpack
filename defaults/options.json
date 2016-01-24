@@ -25,7 +25,7 @@
     "HHVM_STRIP": true,
     "PHP_55_LATEST": "5.5.30",
     "PHP_56_LATEST": "5.6.15",
-    "PHP_70_LATEST": "7.0.0",
+    "PHP_70_LATEST": "7.0.2",
     "PHP_VERSION": "{PHP_55_LATEST}",
     "PHP_PACKAGE": "php-{PHP_VERSION}.tar.gz",
     "PHP_DOWNLOAD_URL": "/php/{PHP_VERSION}/{PHP_PACKAGE}",
