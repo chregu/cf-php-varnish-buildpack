@@ -25,6 +25,7 @@ import json
 import StringIO
 from build_pack_utils import utils
 from build_pack_utils import stream_output
+from compile_helpers import load_manifest
 from extension_helpers import ExtensionHelper
 
 
@@ -99,9 +100,13 @@ class ComposerConfiguration(object):
             selected = self._ctx['PHP_55_LATEST']
         elif requested == '5.6.*' or requested == '>=5.6':
             selected = self._ctx['PHP_56_LATEST']
+        elif requested == '7.0.*' or requested == '>=7.0':
+            selected = self._ctx['PHP_70_LATEST']
         elif requested.startswith('5.5.'):
             selected = requested
         elif requested.startswith('5.6.'):
+            selected = requested
+        elif requested.startswith('7.0.'):
             selected = requested
         else:
             selected = self._ctx['PHP_VERSION']
@@ -129,20 +134,15 @@ class ComposerConfiguration(object):
             # add platform extensions from composer.json & composer.lock
             exts.extend(self.read_exts_from_path(self.json_path))
             exts.extend(self.read_exts_from_path(self.lock_path))
-            hhvm_version = self.read_version_from_composer('hhvm')
-            if hhvm_version:
-                self._ctx['PHP_VM'] = 'hhvm'
-                self._log.debug('Composer picked HHVM Version [%s]',
-                                hhvm_version)
-            else:
-                # update context with new list of extensions,
-                # if composer.json exists
-                php_version = self.read_version_from_composer('php')
-                self._log.debug('Composer picked PHP Version [%s]',
-                                php_version)
-                self._ctx['PHP_VERSION'] = self.pick_php_version(php_version)
-                self._ctx['PHP_EXTENSIONS'] = utils.unique(exts)
-                self._ctx['PHP_VM'] = 'php'
+
+            # update context with new list of extensions,
+            # if composer.json exists
+            php_version = self.read_version_from_composer('php')
+            self._log.debug('Composer picked PHP Version [%s]',
+                            php_version)
+            self._ctx['PHP_VERSION'] = self.pick_php_version(php_version)
+            self._ctx['PHP_EXTENSIONS'] = utils.unique(exts)
+            self._ctx['PHP_VM'] = 'php'
 
 
 class ComposerExtension(ExtensionHelper):
@@ -151,8 +151,12 @@ class ComposerExtension(ExtensionHelper):
         self._log = _log
 
     def _defaults(self):
+        manifest = load_manifest(self._ctx)
+        dependencies = manifest['dependencies']
+        composer = (d for d in dependencies if d["name"] == "composer").next()
+
         return {
-            'COMPOSER_VERSION': '1.0.0-alpha10',
+            'COMPOSER_VERSION': composer['version'],
             'COMPOSER_PACKAGE': 'composer.phar',
             'COMPOSER_DOWNLOAD_URL': '/composer/'
                                      '{COMPOSER_VERSION}/{COMPOSER_PACKAGE}',
@@ -314,8 +318,7 @@ class ComposerCommandRunner(object):
     def __init__(self, ctx, builder):
         self._log = _log
         self._ctx = ctx
-        self._strategy = HHVMComposerStrategy(ctx) \
-            if ctx['PHP_VM'] == 'hhvm' else PHPComposerStrategy(ctx)
+        self._strategy = PHPComposerStrategy(ctx)
         self._php_path = self._strategy.binary_path()
         self._composer_path = os.path.join(ctx['BUILD_DIR'], 'php',
                                            'bin', 'composer.phar')
@@ -356,22 +359,6 @@ class ComposerCommandRunner(object):
         except:
             print "-----> Composer command failed"
             raise
-
-
-class HHVMComposerStrategy(object):
-    def __init__(self, ctx):
-        self._ctx = ctx
-
-    def binary_path(self):
-        return os.path.join(
-            self._ctx['BUILD_DIR'], 'hhvm', 'usr', 'bin', 'hhvm')
-
-    def write_config(self, builder):
-        pass
-
-    def ld_library_path(self):
-        return os.path.join(
-            self._ctx['BUILD_DIR'], 'hhvm', 'usr', 'lib', 'hhvm')
 
 
 class PHPComposerStrategy(object):
