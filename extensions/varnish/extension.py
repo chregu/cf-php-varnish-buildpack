@@ -16,7 +16,7 @@
 import os
 import os.path
 import logging
-    
+
 _log = logging.getLogger('varnish')
 
 DEFAULTS = {
@@ -24,7 +24,15 @@ DEFAULTS = {
     'VARNISH_VERSION': '3.0.7',
     'VARNISH_PACKAGE': 'varnish-{VARNISH_VERSION}.tar.gz',
     'VARNISH_DOWNLOAD_URL': 'https://gitlab.liip.ch/chregu/cf-varnish-binary/raw/master/vendor/varnish-{VARNISH_VERSION}.tar.gz',
-    'VARNISHNCSA': 'no'
+    'VARNISHNCSA': 'no',
+    'VARNISH_OPTIONS': [
+        '-a 0.0.0.0:$PORT',
+        '-t 120',
+        '-w 50,1000,120',
+        '-s malloc,$VARNISH_MEMORY_LIMIT',
+        '-T 127.0.0.1:6082',
+        '-p http_resp_hdr_len=32768'
+    ]
 }
 
 
@@ -40,10 +48,10 @@ class VarnishInstaller(object):
         for key, val in DEFAULTS.iteritems():
             if key not in self._ctx:
                 self._ctx[key] = val
-                
+
     def should_install(self):
         return self._ctx['CACHE_SERVER'] == 'varnish'
-    
+
     def install(self):
         _log.info("Installing Varnish METHOD")
         self._builder.install()._installer._install_binary_from_manifest(
@@ -51,7 +59,7 @@ class VarnishInstaller(object):
                 os.path.join('app'),
                 extract=True)
 
-        
+
 
 def preprocess_commands(ctx):
     if ctx['CACHE_SERVER'] == 'varnish':
@@ -62,32 +70,24 @@ def preprocess_commands(ctx):
 
 
 def service_commands(ctx):
-    
+
     if ctx['CACHE_SERVER'] == 'varnish':
         returnVal = {
-                'varnish': (
-                    '$HOME/varnish/sbin/varnishd',
-                    '-F',
-                    '-f $HOME/varnish/etc/varnish/default.vcl',
-                    '-a 0.0.0.0:$PORT',
-                    '-t 120',
-                    '-w 50,1000,120',
-                    '-s malloc,$VARNISH_MEMORY_LIMIT',
-                    '-T 127.0.0.1:6082',
-                    '-p http_resp_hdr_len=32768'
-                    '2>&1'
-                    )
-                 }
-        
-        if ('VARNISHNCSA' in ctx and ctx['VARNISHNCSA'] == "yes"): 
-            varnishncsa = ('sleep 5;', '$HOME/varnish/bin/varnishncsa')             
-            if 'VARNISHNCSA_OPTIONS' in ctx:            
-                varnishncsa += (ctx.get('VARNISHNCSA_OPTIONS', format=False),)                        
-            returnVal['varnishncsa'] = varnishncsa        
+            'varnish': ('$HOME/varnish/sbin/varnishd',) + tuple(_varnish_options(ctx)) + ('2>&1',)
+        }
+
+        if ('VARNISHNCSA' in ctx and ctx['VARNISHNCSA'] == "yes"):
+            varnishncsa = ('sleep 5;', '$HOME/varnish/bin/varnishncsa')
+            if 'VARNISHNCSA_OPTIONS' in ctx:
+                varnishncsa += (ctx.get('VARNISHNCSA_OPTIONS', format=False),)
+            returnVal['varnishncsa'] = varnishncsa
         return returnVal
     else:
         return {}
 
+def _varnish_options(ctx):
+    varnish_options = ctx.get('VARNISH_OPTIONS')
+    return ['-F', '-f $HOME/varnish/etc/varnish/default.vcl'] + varnish_options
 
 def service_environment(ctx):
     if 'VARNISH_MEMORY_LIMIT' in ctx:
@@ -117,4 +117,3 @@ def compile(install):
                 .done())
         _log.info("Varnish Installed.")
     return 0
-    
