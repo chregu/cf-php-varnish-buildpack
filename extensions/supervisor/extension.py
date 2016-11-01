@@ -70,8 +70,6 @@ def service_commands(ctx):
                     '--nodaemon',
                     '--configuration',
                     '$HOME/supervisor/etc/supervisord.conf',
-                    '--logfile',
-                    '-',
                     '--pidfile',
                     '$TMPDIR/supervisor.pid',
                     '2>&1'
@@ -94,8 +92,12 @@ def compile(install):
         (install
             .package('SUPERVISOR')
             .config()
+                .from_application('.bp-config/supervisord.conf')  # noqa
+                .to('supervisor/etc')
+                .rewrite()
+                .done()
+            .config()
                 .from_application('.bp-config/supervisor')  # noqa
-                #.or_from_build_pack('defaults/config/varnish/{VARNISH_VERSION}')
                 .to('supervisor/etc/conf.d')
                 .rewrite()
                 .done()
