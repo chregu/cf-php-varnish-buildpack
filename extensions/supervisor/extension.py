@@ -23,7 +23,7 @@ DEFAULTS = {
     'SUPERVISOR_HOST': 'raw.githubusercontent.com',
     'SUPERVISOR_VERSION': '3.0b2',
     'SUPERVISOR_PACKAGE': 'supervisor-{SUPERVISOR_VERSION}.tar.gz',
-    'SUPERVISOR_DOWNLOAD_URL': 'supervisor-{SUPERVISOR_VERSION}.tar.gz'
+    'SUPERVISOR_DOWNLOAD_URL': 'https://gitlab.liip.ch/chregu/cf-varnish-binary/raw/master/vendor/supervisor-{SUPERVISOR_VERSION}.tar.gz',
 }
 
 
