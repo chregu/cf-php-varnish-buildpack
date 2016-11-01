@@ -402,7 +402,7 @@ dependencies:
 - name: supervisor
   version: 3.0b2
   uri: https://gitlab.liip.ch/chregu/cf-varnish-binary/raw/master/vendor/supervisor-3.0b2.tar.gz
-  md5: 1cb16f529ae628f25bb58a999a9c4261
+  md5: 113c1cf20da058f8cb7a9697e3687ecd
   cf_stacks:
   - cflinuxfs2
 
