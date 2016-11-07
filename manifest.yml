@@ -24,10 +24,10 @@ url_to_dependency_map:
   version: "$1"
 - match: "supervisor-(.*).tar.gz"
   name: supervisor
-  version: "$1"  
+  version: "$1"
 - match: "varnish-(.*).tar.gz"
   name: varnish
-  version: "$1"  
+  version: "$1"
 dependencies:
 - name: newrelic
   version: 6.3.0.161
@@ -369,12 +369,60 @@ dependencies:
   - pgsql
   - exif
   - zlib
-- name: nginx
-  version: 1.11.1
-  uri: https://pivotal-buildpacks.s3.amazonaws.com/concourse-binaries/nginx/nginx-1.11.1-linux-x64.tgz
+- name: php
+  version: 7.0.12
+  uri: https://buildpacks.cloudfoundry.org/concourse-binaries/php7/php7-7.0.12-linux-x64-1476722714.tgz
+  md5: b5e157e2c471350b807f5d761c157bad
   cf_stacks:
   - cflinuxfs2
-  md5: 7d28497395b62221f3380e82f89cd197
+  modules:
+  - amqp
+  - bz2
+  - cassandra
+  - curl
+  - dba
+  - exif
+  - fileinfo
+  - ftp
+  - gd
+  - gettext
+  - gmp
+  - imagick
+  - imap
+  - ldap
+  - lua
+  - mailparse
+  - mbstring
+  - mcrypt
+  - mongodb
+  - msgpack
+  - mysqli
+  - opcache
+  - openssl
+  - pcntl
+  - pdo
+  - pdo_mysql
+  - pdo_pgsql
+  - pdo_sqlite
+  - pgsql
+  - phalcon
+  - pspell
+  - rdkafka
+  - snmp
+  - soap
+  - sockets
+  - solr
+  - xdebug
+  - xsl
+  - yaf
+  - zip
+  - zlib
+- name: nginx
+  version: 1.11.5
+  uri: https://buildpacks.cloudfoundry.org/concourse-binaries/nginx/nginx-1.11.5-linux-x64.tgz
+  md5: 48811c404ce20f7dbe1b731e780c62a8
+  cf_stacks:
+  - cflinuxfs2
 - name: nginx
   version: 1.9.15
   uri: https://pivotal-buildpacks.s3.amazonaws.com/concourse-binaries/nginx/nginx-1.9.15-linux-x64.tgz
