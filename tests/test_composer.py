@@ -17,6 +17,7 @@ class TestComposer(object):
     def setUp(self):
         os.environ['COMPOSER_GITHUB_OAUTH_TOKEN'] = ""
         assert(os.getenv('COMPOSER_GITHUB_OAUTH_TOKEN') == "")
+        self.buildpack_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 
     def test_composer_tool_should_compile(self):
         ctx = utils.FormattedDict({
@@ -41,6 +42,17 @@ class TestComposer(object):
         })
         ct = self.extension_module.ComposerExtension(ctx)
         assert not ct._should_compile()
+
+    def test_composer_tool_uses_default_version_for(self):
+        ctx = utils.FormattedDict({
+            'BP_DIR': os.path.join(self.buildpack_dir, 'tests/data/composer-default-versions/'),
+            'PHP_VM': 'will_default_to_php_strategy',
+            'BUILD_DIR': '/build/dir',
+            'CACHE_DIR': '/cache/dir',
+            'WEBDIR': ''
+        })
+        ct = self.extension_module.ComposerExtension(ctx)
+        assert ct._ctx['COMPOSER_VERSION'] == '9.9.9'
 
     def test_composer_tool_install(self):
         ctx = utils.FormattedDict({
@@ -340,7 +352,7 @@ class TestComposer(object):
             'BUILD_DIR': '',
             'PHP_55_LATEST': '5.5.15',
             'PHP_56_LATEST': '5.6.7',
-            'PHP_70_LATEST': '7.0.100',
+            'PHP_70_LATEST': '7.0.12',
             'WEBDIR': ''
         }
         pick_php_version = \
@@ -359,8 +371,8 @@ class TestComposer(object):
         eq_('5.6.7', pick_php_version('5.6.7'))
         eq_('5.6.6', pick_php_version('5.6.6'))
         # latest PHP 7.0 version
-        eq_('7.0.100', pick_php_version('>=7.0'))
-        eq_('7.0.100', pick_php_version('7.0.*'))
+        eq_('7.0.12', pick_php_version('>=7.0'))
+        eq_('7.0.12', pick_php_version('7.0.*'))
         # exact PHP 7.0 versions
         eq_('7.0.1', pick_php_version('7.0.1'))
         eq_('7.0.2', pick_php_version('7.0.2'))
