@@ -16,13 +16,17 @@ default_versions:
 - name: php
   version: 5.5.38
 - name: httpd
-  version: 2.4.20
+  version: 2.4.23
 - name: newrelic
   version: 6.3.0.161
 - name: composer
   version: 1.2.1
 - name: nginx
   version: 1.11.5
+- name: varnish
+  version: 4.1.2
+- name: supervisor
+  version: 3.0b2
 url_to_dependency_map:
 - match: newrelic-php5-(\d+\.\d+\.\d+\.\d+)-linux
   name: newrelic
@@ -47,8 +51,8 @@ dependencies:
   - cflinuxfs2
   md5: 3640d3cad6b5199f54a6b54a627235d6
 - name: httpd
-  version: 2.4.20
-  uri: https://pivotal-buildpacks.s3.amazonaws.com/concourse-binaries/httpd/httpd-2.4.20-linux-x64.tgz
+  version: 2.4.23
+  uri: https://pivotal-buildpacks.s3.amazonaws.com/concourse-binaries/httpd/httpd-2.4.23-linux-x64.tgz
   cf_stacks:
   - cflinuxfs2
   md5: a5d5178f0f8133a65baf942a07408ba6
