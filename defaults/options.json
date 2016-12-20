@@ -17,5 +17,6 @@
     "PHP_EXTENSIONS": ["bz2", "zlib", "curl", "mcrypt"],
     "ZEND_EXTENSIONS": [],
     "CACHE_SERVER": "none",
-    "SUPERVISORD": false
+    "SUPERVISORD": false,
+    "JAVA_JDK": false
 }
