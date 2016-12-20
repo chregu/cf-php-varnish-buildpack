@@ -1,6 +1,7 @@
 {
     "require": {
         "ext-amqp": "*",
+        "ext-apcu": "*",
         "ext-bz2": "*",
         "ext-cassandra": "*",
         "ext-curl": "*",
@@ -42,6 +43,7 @@
         "ext-protobuf": "*",
         "ext-protocolbuffers": "*",
         "ext-pspell": "*",
+        "ext-rdkafka": "*",
         "ext-readline": "*",
         "ext-redis": "*",
         "ext-snmp": "*",
@@ -52,7 +54,6 @@
         "ext-sundown": "*",
         "ext-twig": "*",
         "ext-xcache": "*",
-        "ext-xdebug": "*",
         "ext-xhprof": "*",
         "ext-xsl": "*",
         "ext-yaf": "*",

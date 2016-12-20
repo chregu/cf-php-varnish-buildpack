@@ -1,6 +1,7 @@
 {
     "require": {
         "php": ">=7.0",
+        "ext-apcu": "*",
         "ext-amqp": "*",
         "ext-bz2": "*",
         "ext-cassandra": "*",
@@ -30,13 +31,14 @@
         "ext-pdo_sqlite": "*",
         "ext-pgsql": "*",
         "ext-phalcon": "*",
+        "ext-phpiredis": "*",
         "ext-pspell": "*",
         "ext-rdkafka": "*",
+        "ext-redis": "*",
         "ext-snmp": "*",
         "ext-soap": "*",
         "ext-sockets": "*",
         "ext-solr": "*",
-        "ext-xdebug": "*",
         "ext-xsl": "*",
         "ext-yaf": "*",
         "ext-zip": "*",

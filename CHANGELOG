@@ -1,3 +1,66 @@
+v4.3.24 Dec 15, 2016
+=====================
+
+* Add PHP 7.0.14, remove PHP 7.0.12
+  (https://www.pivotaltracker.com/story/show/135633579)
+
+* Add PHP 5.6.29, remove PHP 5.6.27
+  (https://www.pivotaltracker.com/story/show/135758907)
+
+* Add nginx 1.11.7, remove nginx 1.11.6
+  (https://www.pivotaltracker.com/story/show/136041771)
+
+* Use rebuilt HTTPD 2.4.23 with proper LDAP support
+  (https://www.pivotaltracker.com/story/show/132910743)
+
+* Add composer 1.2.4, remove composer 1.2.2
+  (https://www.pivotaltracker.com/story/show/135654195)
+
+v4.3.23 Dec 01, 2016
+=====================
+
+* Add rdkafka support for PHP5
+  (https://www.pivotaltracker.com/story/show/134085181)
+
+* Add ioncube support to PHP7
+  (https://www.pivotaltracker.com/story/show/134086493)
+
+* Add nginx 1.11.6, remove nginx 1.11.5
+  (https://www.pivotaltracker.com/story/show/134361411)
+
+* Add php 5.6.28, remove php 5.6.26
+  (https://www.pivotaltracker.com/story/show/133979927)
+
+* Add php 7.0.13, remove php 7.0.11
+  (https://www.pivotaltracker.com/story/show/133933579)
+
+* Update versions for PHP7 modules librdkafka and cassandra
+  (https://www.pivotaltracker.com/story/show/133503813)
+
+* Rebuild and change path for php, nginx, httpd, composer binaries
+  - We identified a potential, but unlikely, attack vector in our continuous
+    integration system. Our own auditing strongly suggests that this attack
+    vector was not taken advantage of. However, out of an abundance of caution,
+    we are rebuilding all buildpack dependencies that we maintain.
+
+v4.3.22 Nov 09, 2016
+=====================
+
+* Ensure all downloaded binaries have checksums verified
+  (https://www.pivotaltracker.com/story/show/128099189)
+
+* Add composer 1.2.2, remove composer 1.2.1
+  (https://www.pivotaltracker.com/story/show/133687415)
+
+* Add APCu support to all PHP versions
+  (https://www.pivotaltracker.com/story/show/129370967)
+
+* Warn and error when composer.json or composer.lock has invalid format
+  (https://www.pivotaltracker.com/story/show/130240985)
+
+* Add support for phpiredis and phpredis in PHP7
+  (https://www.pivotaltracker.com/story/show/127939547)
+
 v4.3.21 Oct 19, 2016
 =====================
 
