@@ -16,7 +16,7 @@
 import os
 import os.path
 import logging
-    
+
 _log = logging.getLogger('java')
 
 DEFAULTS = {
@@ -39,10 +39,10 @@ class JavaInstaller(object):
         for key, val in DEFAULTS.iteritems():
             if key not in self._ctx:
                 self._ctx[key] = val
-                           
+
     def should_install(self):
         return self._ctx['JAVA_JDK'] == True
-    
+
     def install(self):
         _log.info("Installing Java")
         self._builder.install()._installer._install_binary_from_manifest(
@@ -50,11 +50,11 @@ class JavaInstaller(object):
                 os.path.join('app'),
                 extract=True)
 
-        
+
 
 def preprocess_commands(ctx):
     if ctx['JAVA_JDK'] == True:
-        return (('mkdir', '/home/vcap/tmp/java/'))
+        return (('mkdir', '/home/vcap/tmp/java/'),)
     else:
         return ()
 
@@ -73,4 +73,3 @@ def compile(install):
          )
         _log.info("Java Installed.")
     return 0
-    
