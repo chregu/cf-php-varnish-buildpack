@@ -457,6 +457,12 @@ dependencies:
   md5: 9acc30a14126efc5b3f8c4be88fe7e55
   cf_stacks:
   - cflinuxfs2
+- name: varnish
+  version: 5.2.0
+  uri: https://gitlab.liip.ch/chregu/cf-varnish-binary/raw/master/vendor/varnish-5.2.0.tar.gz
+  md5: b20cc694b54f6c651f7601b56fce4a99
+  cf_stacks:
+  - cflinuxfs2
 - name: supervisor
   version: 3.0b2
   uri: https://gitlab.liip.ch/chregu/cf-varnish-binary/raw/master/vendor/supervisor-3.0b2.tar.gz
