@@ -14,7 +14,7 @@ exclude_files:
 - php_buildpack-*v*
 default_versions:
 - name: php
-  version: 5.5.38
+  version: 7.2.8
 - name: httpd
   version: 2.4.23
 - name: newrelic
@@ -421,6 +421,54 @@ dependencies:
   - yaf
   - zip
   - zlib
+- name: php
+  version: 7.2.8
+  uri: https://buildpacks.cloudfoundry.org/dependencies/php/php7-7.2.8-linux-x64-cflinuxfs2-570d0ad4.tgz
+  sha256: 570d0ad4ebc5e19e920d984974c7bd1d28ecf9e1858dfb7ca3aea62a47ca0499
+  cf_stacks:
+  - cflinuxfs2
+  modules:
+  - amqp
+  - bz2
+  - cassandra
+  - curl
+  - dba
+  - exif
+  - fileinfo
+  - ftp
+  - gd
+  - gettext
+  - gmp
+  - imagick
+  - imap
+  - ldap
+  - lua
+  - mailparse
+  - mbstring
+  - mcrypt
+  - mongodb
+  - msgpack
+  - mysqli
+  - opcache
+  - openssl
+  - pcntl
+  - pdo
+  - pdo_mysql
+  - pdo_pgsql
+  - pdo_sqlite
+  - pgsql
+  - phalcon
+  - pspell
+  - rdkafka
+  - snmp
+  - soap
+  - sockets
+  - solr
+  - xdebug
+  - xsl
+  - yaf
+  - zip
+  - zlib  
 - name: composer
   version: 1.2.1
   uri: https://pivotal-buildpacks.s3.amazonaws.com/php/binaries/trusty/composer/1.2.1/composer.phar
